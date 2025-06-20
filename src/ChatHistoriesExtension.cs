@@ -170,4 +170,22 @@ public static class ChatHistoryLoggingExtensions
         logger?.Log(level, "Developer message: {Content}", content);
         return history;
     }
+
+    /// <summary>
+    /// Logs all messages in the chat history at the specified log level.
+    /// </summary>
+    /// <param name="history">The chat history whose messages will be logged.</param>
+    /// <param name="logger">The logger used to record the messages.</param>
+    /// <param name="level">The log level to use. Defaults to Information.</param>
+    /// <returns>The same <see cref="ChatHistory"/> instance, for fluent chaining.</returns>
+    public static ChatHistory LogAllMessages(this ChatHistory history, ILogger? logger = null, LogLevel level = LogLevel.Information)
+    {
+        foreach (ChatMessageContent message in history)
+        {
+            // You can customize the template as you like
+            logger?.Log(level, "{Role} message: {Content}", message.Role, message.Content);
+        }
+
+        return history;
+    }
 }

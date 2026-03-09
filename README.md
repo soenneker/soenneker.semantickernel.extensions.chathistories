@@ -1,16 +1,17 @@
-﻿[![](https://img.shields.io/nuget/v/soenneker.semantickernel.extensions.chathistories.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.semantickernel.extensions.chathistories/)
+[![](https://img.shields.io/nuget/v/soenneker.semantickernel.extensions.chathistories.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.semantickernel.extensions.chathistories/)
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.semantickernel.extensions.chathistories/publish-package.yml?style=for-the-badge)](https://github.com/soenneker/soenneker.semantickernel.extensions.chathistories/actions/workflows/publish-package.yml)
 [![](https://img.shields.io/nuget/dt/soenneker.semantickernel.extensions.chathistories.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.semantickernel.extensions.chathistories/)
+[![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.semantickernel.extensions.chathistories/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.semantickernel.extensions.chathistories/actions/workflows/codeql.yml)
 
 # ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.SemanticKernel.Extensions.ChatHistories
 
 ### A collection of helpful Semantic Kernel `ChatHistory` extension methods
 
-This library provides composable and production-grade extension methods for working with `Microsoft.SemanticKernel.ChatCompletion.ChatHistory`. It includes utilities for transformation, logging, filtering, restructuring, and role-aware operations—ideal for agent frameworks, prompt engineering, and chat memory management.
+This library provides composable and production-grade extension methods for working with `Microsoft.SemanticKernel.ChatCompletion.ChatHistory`. It includes utilities for transformation, logging, filtering, restructuring, and role-aware operations�ideal for agent frameworks, prompt engineering, and chat memory management.
 
 ---
 
-## 🛠️ Installation
+## ??? Installation
 
 ```bash
 dotnet add package Soenneker.SemanticKernel.Extensions.ChatHistories
@@ -18,20 +19,20 @@ dotnet add package Soenneker.SemanticKernel.Extensions.ChatHistories
 
 ---
 
-## ✨ Features
+## ? Features
 
-* 🧩 **Modular** utilities to copy, clone, transform, and manipulate chat history
-* 🔍 Logging-aware `Add*MessageLogged(...)` methods with structured `ILogger` output
-* 🧠 Intelligent system prompt injection:
+* ?? **Modular** utilities to copy, clone, transform, and manipulate chat history
+* ?? Logging-aware `Add*MessageLogged(...)` methods with structured `ILogger` output
+* ?? Intelligent system prompt injection:
 
   * At the beginning
   * After existing system messages
-* 🧼 Role-based filtering (e.g., remove all system messages)
-* 🧾 Clean composition for creating structured, valid chat histories
+* ?? Role-based filtering (e.g., remove all system messages)
+* ?? Clean composition for creating structured, valid chat histories
 
 ---
 
-## 📦 Example Usage
+## ?? Example Usage
 
 ```csharp
 var history = new ChatHistory();
@@ -59,9 +60,9 @@ history.AddAssistantMessageLogged("Hi there!", logger);
 
 ---
 
-## 🧩 API Highlights
+## ?? API Highlights
 
-### 💬 Chat History Transformations
+### ?? Chat History Transformations
 
 * `Clone()`: Deep copy of a `ChatHistory`
 * `CopyTo(target)`: Copy messages to another history
@@ -69,7 +70,7 @@ history.AddAssistantMessageLogged("Hi there!", logger);
 * `InsertSystemMessageAfterExistingSystemMessages(string)`: Add prompt after all existing system messages
 * `RemoveSystemMessages()`: Filter out system-only messages
 
-### 🔐 Logging Helpers
+### ?? Logging Helpers
 
 * `AddSystemMessageLogged(...)`
 * `AddUserMessageLogged(...)`

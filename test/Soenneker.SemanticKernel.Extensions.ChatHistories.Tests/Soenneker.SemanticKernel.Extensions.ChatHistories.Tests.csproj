@@ -14,10 +14,5 @@
     <ItemGroup>
         <ProjectReference Include="..\..\src\Soenneker.SemanticKernel.Extensions.ChatHistories\Soenneker.SemanticKernel.Extensions.ChatHistories.csproj" />
     </ItemGroup>
-
-    <ItemGroup>
-        <Content Include="testconfig.json">
-            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        </Content>
-    </ItemGroup>
 </Project>
+

@@ -1,11 +1,10 @@
-﻿using Soenneker.Tests.Unit;
-using Xunit;
+using Soenneker.Tests.Unit;
 
 namespace Soenneker.SemanticKernel.Extensions.ChatHistories.Tests;
 
 public sealed class ChatHistoryExtensionTests : UnitTest
 {
-    [Fact]
+    [Test]
     public void Default()
     {
 

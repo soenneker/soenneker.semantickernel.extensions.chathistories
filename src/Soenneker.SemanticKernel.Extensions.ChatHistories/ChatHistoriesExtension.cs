@@ -114,10 +114,10 @@ public static class ChatHistoryLoggingExtensions
     /// <summary>
     /// Adds a system message to the chat history and logs the content at the specified log level.
     /// </summary>
-    /// <param name="history">The chat history to modify.</param>
-    /// <param name="content">The content of the system message.</param>
+    /// <param name="history">History for the add system message logged operation.</param>
+    /// <param name="content">Content to render, store, or send.</param>
     /// <param name="logger">Optional logger to record the message.</param>
-    /// <param name="level">The log level to use when logging the message. Defaults to Information.</param>
+    /// <param name="level">Logging level used for the console entry.</param>
     /// <returns>The modified <see cref="ChatHistory"/> instance.</returns>
     public static ChatHistory AddSystemMessageLogged(this ChatHistory history, string content, ILogger? logger = null, LogLevel level = LogLevel.Information)
     {
@@ -129,10 +129,10 @@ public static class ChatHistoryLoggingExtensions
     /// <summary>
     /// Adds a user message to the chat history and logs the content at the specified log level.
     /// </summary>
-    /// <param name="history">The chat history to modify.</param>
-    /// <param name="content">The content of the user message.</param>
+    /// <param name="history">History for the add user message logged operation.</param>
+    /// <param name="content">Content to render, store, or send.</param>
     /// <param name="logger">Optional logger to record the message.</param>
-    /// <param name="level">The log level to use when logging the message. Defaults to Information.</param>
+    /// <param name="level">Logging level used for the console entry.</param>
     /// <returns>The modified <see cref="ChatHistory"/> instance.</returns>
     public static ChatHistory AddUserMessageLogged(this ChatHistory history, string content, ILogger? logger = null, LogLevel level = LogLevel.Information)
     {
@@ -144,10 +144,10 @@ public static class ChatHistoryLoggingExtensions
     /// <summary>
     /// Adds an assistant message to the chat history and logs the content at the specified log level.
     /// </summary>
-    /// <param name="history">The chat history to modify.</param>
-    /// <param name="content">The content of the assistant message.</param>
+    /// <param name="history">History for the add assistant message logged operation.</param>
+    /// <param name="content">Content to render, store, or send.</param>
     /// <param name="logger">Optional logger to record the message.</param>
-    /// <param name="level">The log level to use when logging the message. Defaults to Information.</param>
+    /// <param name="level">Logging level used for the console entry.</param>
     /// <returns>The modified <see cref="ChatHistory"/> instance.</returns>
     public static ChatHistory AddAssistantMessageLogged(this ChatHistory history, string content, ILogger? logger = null, LogLevel level = LogLevel.Information)
     {
@@ -159,10 +159,10 @@ public static class ChatHistoryLoggingExtensions
     /// <summary>
     /// Adds a developer message to the chat history and logs the content at the specified log level.
     /// </summary>
-    /// <param name="history">The chat history to modify.</param>
-    /// <param name="content">The content of the developer message.</param>
+    /// <param name="history">History for the add developer message logged operation.</param>
+    /// <param name="content">Content to render, store, or send.</param>
     /// <param name="logger">Optional logger to record the message.</param>
-    /// <param name="level">The log level to use when logging the message. Defaults to Information.</param>
+    /// <param name="level">Logging level used for the console entry.</param>
     /// <returns>The modified <see cref="ChatHistory"/> instance.</returns>
     public static ChatHistory AddDeveloperMessageLogged(this ChatHistory history, string content, ILogger? logger = null, LogLevel level = LogLevel.Information)
     {

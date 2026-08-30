@@ -3,80 +3,58 @@
 [![](https://img.shields.io/nuget/dt/soenneker.semantickernel.extensions.chathistories.svg?style=for-the-badge)](https://www.nuget.org/packages/soenneker.semantickernel.extensions.chathistories/)
 [![](https://img.shields.io/github/actions/workflow/status/soenneker/soenneker.semantickernel.extensions.chathistories/codeql.yml?label=CodeQL&style=for-the-badge)](https://github.com/soenneker/soenneker.semantickernel.extensions.chathistories/actions/workflows/codeql.yml)
 
-# ![](https://user-images.githubusercontent.com/4441470/224455560-91ed3ee7-f510-4041-a8d2-3fc093025112.png) Soenneker.SemanticKernel.Extensions.ChatHistories
+# Soenneker.SemanticKernel.Extensions.ChatHistories
 
-### A collection of helpful Semantic Kernel `ChatHistory` extension methods
+Text-oriented transformation and logging extensions for Semantic Kernel `ChatHistory`.
 
-This library provides composable and production-grade extension methods for working with `Microsoft.SemanticKernel.ChatCompletion.ChatHistory`. It includes utilities for transformation, logging, filtering, restructuring, and role-aware operations—ideal for agent frameworks, prompt engineering, and chat memory management.
-
----
-
-## ??? Installation
+## Installation
 
 ```bash
 dotnet add package Soenneker.SemanticKernel.Extensions.ChatHistories
-````
+```
 
----
-
-## ? Features
-
-* ?? **Modular** utilities to copy, clone, transform, and manipulate chat history
-* ?? Logging-aware `Add*MessageLogged(...)` methods with structured `ILogger` output
-* ?? Intelligent system prompt injection:
-
-  * At the beginning
-  * After existing system messages
-* ?? Role-based filtering (e.g., remove all system messages)
-* ?? Clean composition for creating structured, valid chat histories
-
----
-
-## ?? Example Usage
+## Transforming history
 
 ```csharp
+using Microsoft.SemanticKernel.ChatCompletion;
+using Soenneker.SemanticKernel.Extensions.ChatHistories;
+
 var history = new ChatHistory();
-
+history.AddSystemMessage("Answer concisely.");
 history.AddUserMessage("What is the capital of France?");
-history.AddAssistantMessage("Paris is the capital of France.");
 
-// Clone the chat history
-var clone = history.Clone();
+ChatHistory prepended = history.WithPrependedSystemMessage(
+    "Follow the application's safety policy.");
 
-// Prepend a new system message
-var withSystem = history.WithPrependedSystemMessage("You are a helpful assistant.");
+ChatHistory inserted = history.InsertSystemMessageAfterExistingSystemMessages(
+    "Return plain text only.");
 
-// Insert system message after existing system messages
-var withInsertedSystem = history.InsertSystemMessageAfterExistingSystemMessages("Follow strict format rules only.");
+ChatHistory withoutSystemPrompts = history.RemoveSystemMessages();
+ChatHistory copy = history.Clone();
 ```
 
-Add messages with logging:
+The transformation methods return a new `ChatHistory`; they do not mutate the source. `CopyTo` appends projected messages to an existing target and does not clear it first.
+
+`InsertSystemMessageAfterExistingSystemMessages` inserts before the first non-system message. If the history is empty or contains only system messages, it appends the new system message.
+
+## Logging while adding messages
 
 ```csharp
-var logger = loggerFactory.CreateLogger("Chat");
-history.AddUserMessageLogged("Hello!", logger);
-history.AddAssistantMessageLogged("Hi there!", logger);
+history
+    .AddUserMessageLogged("Summarize this document.", logger, LogLevel.Debug)
+    .AddAssistantMessageLogged("The document describes...", logger, LogLevel.Debug);
+
+history.LogAllMessages(logger, LogLevel.Trace);
 ```
 
----
+The `Add*MessageLogged` methods mutate and return the same history for chaining. Passing a null logger still adds the message without logging it.
 
-## ?? API Highlights
+## Content fidelity
 
-### ?? Chat History Transformations
+`CopyTo`, `Clone`, `WithPrependedSystemMessage`, `InsertSystemMessageAfterExistingSystemMessages`, and `RemoveSystemMessages` copy only each message's `Role` and text `Content`. They do not preserve author name, model ID, metadata, inner content, source, encoding, function/tool calls, images, audio, or other items in `ChatMessageContent.Items`.
 
-* `Clone()`: Deep copy of a `ChatHistory`
-* `CopyTo(target)`: Copy messages to another history
-* `WithPrependedSystemMessage(string)`: Insert a system prompt at the beginning
-* `InsertSystemMessageAfterExistingSystemMessages(string)`: Add prompt after all existing system messages
-* `RemoveSystemMessages()`: Filter out system-only messages
+Use these transformations only for text-only histories. For multimodal or tool-calling histories, write an application-specific copy that preserves the required item and metadata types.
 
-### ?? Logging Helpers
+## Sensitive data
 
-* `AddSystemMessageLogged(...)`
-* `AddUserMessageLogged(...)`
-* `AddAssistantMessageLogged(...)`
-* `AddDeveloperMessageLogged(...)`
-
-All logging helpers support `ILogger` and `LogLevel`.
-
-... and more
+The logging helpers write complete message content as structured log values with no redaction. Prompts and model responses can contain credentials, personal data, proprietary documents, or tool output. Do not enable these helpers in production unless the chosen log level, sink access, retention, and redaction policy are appropriate for that content.

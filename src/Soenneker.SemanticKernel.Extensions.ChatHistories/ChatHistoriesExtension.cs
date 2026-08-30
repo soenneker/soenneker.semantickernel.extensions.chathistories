@@ -12,7 +12,7 @@ namespace Soenneker.SemanticKernel.Extensions.ChatHistories;
 public static class ChatHistoryLoggingExtensions
 {
     /// <summary>
-    /// Copies all messages from the source <see cref="ChatHistory"/> into the target <see cref="ChatHistory"/>.
+    /// Appends a text-only projection of each source message to the target history, preserving role and text content.
     /// </summary>
     /// <param name="source">The source chat history containing the messages to copy.</param>
     /// <param name="target">The target chat history to which the messages will be copied.</param>
@@ -94,10 +94,10 @@ public static class ChatHistoryLoggingExtensions
     }
 
     /// <summary>
-    /// Creates a deep copy of the chat history, preserving all messages and roles.
+    /// Creates a text-only copy of the chat history, preserving each message's role and text content.
     /// </summary>
     /// <param name="history">The original chat history to clone.</param>
-    /// <returns>A new <see cref="ChatHistory"/> that is a copy of the original.</returns>
+    /// <returns>A new <see cref="ChatHistory"/> containing the projected text messages.</returns>
     [Pure]
     public static ChatHistory Clone(this ChatHistory history)
     {
